@@ -30,13 +30,9 @@
       </div>
     </div>
     <script src="js/clock.js">
-let name="Onur";
+let name=prompt("Adınızı Giriniz","Ad");
 
 document.getElementById("myName").innerHTML=name;
-
-
-
-
 
 setInterval(function(){ let time = new Date();document.getElementById("myClock").innerHTML=time.toLocaleTimeString('tr-TR'); }, 1000);
   
