@@ -22,7 +22,7 @@
       <div class="text1 text-center">
         Merhaba, <strong><span id="myName"></span></strong>! Hoş geldin!
       </div>
-      <div id="myClock" class="clock" ></div>
+      <div id="myClock" class="clock" onload="showTime()" ></div>
       <div class="text2 text-center">
         tarihinde
         <strong>Kodluyoruz Frontend Web Development Patikası</strong>'nın
@@ -30,11 +30,15 @@
       </div>
     </div>
     <script src="js/clock.js">
-let name=prompt("Adınızı Giriniz","Ad");
+    let name=prompt("Adınızı Giriniz","Ad");
+    function showTime()
+      {
+        document.getElementById("myClock").innerHTML=time.toLocaleTimeString('tr-TR');
+      }
+      
+    document.getElementById("myName").innerHTML=name;
 
-document.getElementById("myName").innerHTML=name;
-
-setInterval(function(){ let time = new Date();document.getElementById("myClock").innerHTML=time.toLocaleTimeString('tr-TR'); }, 1000);
+    setInterval(function(){ let time = new Date();document.getElementById("myClock").innerHTML=time.toLocaleTimeString('tr-TR'); }, 1000);
   
 
 </script>
