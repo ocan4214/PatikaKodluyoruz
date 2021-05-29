@@ -94,86 +94,44 @@ for(let i=0;i<4;i++)
     document.getElementById('filterButtons').insertAdjacentElement('beforeend',button);
 }
 
-document.getElementById("allButton").addEventListener('click',allButton)
-document.getElementById("koreaButton").addEventListener('click',koreaButton)
-document.getElementById("japanButton").addEventListener('click',japanButton)
-document.getElementById("chinaButton").addEventListener('click',chinaButton)
-
-
+//document.getElementById("allButton").addEventListener('click',allButton)
+//document.getElementById("koreaButton").addEventListener('click',koreaButton)
+//document.getElementById("japanButton").addEventListener('click',japanButton)
+//document.getElementById("chinaButton").addEventListener('click',chinaButton)
 allButton()
 
-function allButton()
-{
+document.getElementById("filterButtons").addEventListener('click',function(event){
+
     let context = document.getElementById("context")
     context.innerHTML="";
-    menu.forEach(item => {
-        let div = document.createElement("div")
-        div.classList.add("menu-items", "col-lg-6", "col-sm-12")
-        let img = document.createElement("img")
-        img.classList.add("photo");
-        img.src=item.img;
-        img.alt=item.title;
-        div.append(img)
-        div.append(createMenuInfo(item))
-        context.append(div)
-    })
-}
+    if(event.target.innerHTML=="All")
+    {
+        let appendElement=allButton()
+        appendElement.forEach(item => { context.append(item)})
+    }
+    else if(event.target.innerHTML=="Korea")
+    {
+        let appendElement=koreaButton()
+        appendElement.forEach(item => { context.append(item)})
+    }
+    else if(event.target.innerHTML=="Japan")
+    {
+        let appendElement=japanButton()
+        appendElement.forEach(item => { context.append(item)})
+    }
+    else if(event.target.innerHTML=="China")
+    {
+        let appendElement=chinaButton()
+        appendElement.forEach(item => { context.append(item)})
+    }
+    else{
+        let appendElement=allButton()
+        appendElement.forEach(item => { context.append(item)})
+    }
+
+})
 
 
-function koreaButton()
-{
-    let context = document.getElementById("context")
-    context.innerHTML="";
-    let koreaMenu = menu.filter(item => item.category=="Korea")
-    koreaMenu.forEach(item => {
-        let div = document.createElement("div")
-        div.classList.add("menu-items", "col-lg-6", "col-sm-12")
-        let img = document.createElement("img")
-        img.classList.add("photo");
-        img.src=item.img;
-        img.alt=item.title;
-        div.append(img)
-        div.append(createMenuInfo(item))
-        context.append(div)
-    })
-}
-
-
-function japanButton()
-{
-    let context = document.getElementById("context")
-    context.innerHTML="";
-    let japanMenu = menu.filter(item => item.category=="Japan")
-    japanMenu.forEach(item => {
-        let div = document.createElement("div")
-        div.classList.add("menu-items", "col-lg-6", "col-sm-12")
-        let img = document.createElement("img")
-        img.classList.add("photo");
-        img.src=item.img;
-        img.alt=item.title;
-        div.append(img)
-        div.append(createMenuInfo(item))
-        context.append(div)
-    })
-}
-
-function chinaButton()
-{
-    let context = document.getElementById("context")
-    context.innerHTML="";
-    let chinaMenu = menu.filter(item => item.category=="China")
-    chinaMenu.forEach(item => {
-        let div = document.createElement("div")
-        div.classList.add("menu-items", "col-lg-6", "col-sm-12")
-        let img = document.createElement("img")
-        img.classList.add("photo");
-        img.src=item.img;
-        img.alt=item.title;
-        div.append(img)
-        div.append(createMenuInfo(item))
-        context.append(div)
-    })
-}
 
 function createMenuInfo(item)
 {
@@ -188,8 +146,6 @@ function createMenuInfo(item)
     menuTitle.insertAdjacentHTML('afterend',`<h4>${item.title}</h4>`)
     menuTitle.insertAdjacentHTML('afterend',`<h4 class="price">${item.price}</h4>`)
 
-
-
     let menuText = document.createElement("div")
     menuText.classList.add("menu-text");
     menuText.innerHTML=item.desc;
@@ -197,3 +153,60 @@ function createMenuInfo(item)
 
     return menuInfo;
 }
+
+
+function parentMenu(item)
+{
+    let div = document.createElement("div")
+    div.classList.add("menu-items", "col-lg-6", "col-sm-12")
+    let img = document.createElement("img")
+    img.classList.add("photo");
+    img.src=item.img;
+    img.alt=item.title;
+    div.append(img)
+    div.append(createMenuInfo(item))
+    return div;
+}
+
+
+function allButton()
+{
+   let list = [];
+    menu.forEach(item => {
+        list.push(parentMenu(item))
+    })
+    return list;
+}
+
+
+function koreaButton()
+{
+    let list = [];
+    let koreaMenu = menu.filter(item => item.category=="Korea")
+    koreaMenu.forEach(item => {
+        list.push(parentMenu(item))
+    })
+    return list;
+}
+
+
+function japanButton()
+{
+    let list = [];
+    let japanMenu = menu.filter(item => item.category=="Japan")
+    japanMenu.forEach(item => {
+        list.push(parentMenu(item))
+    })
+    return list;
+}
+
+function chinaButton()
+{
+    let list = [];
+    let chinaMenu = menu.filter(item => item.category=="China")
+    chinaMenu.forEach(item => {
+        list.push(parentMenu(item))
+    })
+    return list;
+}
+
